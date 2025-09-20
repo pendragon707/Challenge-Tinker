@@ -49,7 +49,7 @@
 #define USE_USB 0
 #define USE_SERIAL 0
 
-#define MOTOR_ID 5
+#define MOTOR_ID 0
 
 
 #define EN_SPI_BIG 1

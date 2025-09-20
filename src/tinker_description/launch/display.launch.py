@@ -19,7 +19,9 @@ def generate_launch_description() -> LaunchDescription:
     package='joint_state_publisher_gui',
     executable='joint_state_publisher_gui',
     name='joint_state_publisher_gui',
-    output='screen'
+    output='screen',
+    # Exclude this joint; it will be published by your motor node
+    parameters=[{'ignore': ['joint_l_yaw']}]
   )
 
   robot_state_publisher = Node(
