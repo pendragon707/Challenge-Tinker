@@ -4,15 +4,16 @@ project(hardware_msg)
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
+find_package(std_msgs REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
-  "msg/BoardParameters.msg"
-  "msg/ImuParameters.msg" 
-  "msg/MotorParameters.msg"  
-  "msg/MotorsStates.msg"
-  "msg/Imu.msg"              
-  "msg/MotorData.msg"      
-  "msg/MotorsCommands.msg"
+  "src/msg/BoardParameters.msg"
+  "src/msg/ImuParameters.msg" 
+  "src/msg/MotorParameters.msg"  
+  "src/msg/MotorsStates.msg"
+  "src/msg/Imu.msg"              
+  "src/msg/MotorData.msg"      
+  "src/msg/MotorsCommands.msg"
 
-  # DEPENDENCIES geometry_msgs 
+  DEPENDENCIES std_msgs
 )
