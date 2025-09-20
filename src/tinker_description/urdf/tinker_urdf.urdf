@@ -4,12 +4,6 @@
      For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
 <robot
   name="tinker_urdf">
-  <mujoco>
-    <compiler
-    	meshdir="../meshes/"
-    	balanceinertia="true"
-    	discardvisual="false" />
-  </mujoco>
   <link
     name="base_link">
     <inertial>
@@ -32,7 +26,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/base_link.STL" />
+          filename="file:///home/none/Challenge-Tinker/src/tinker_description/meshes/base_link.STL" />
       </geometry>
       <material
         name="">
@@ -46,7 +40,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/base_link.STL" />
+          filename="file:///home/none/Challenge-Tinker/src/tinker_description/meshes/base_link.STL" />
       </geometry>
     </collision>
   </link>
@@ -72,7 +66,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/link_l_yaw.STL" />
+          filename="file:///home/none/Challenge-Tinker/src/tinker_description/meshes/link_l_yaw.STL" />
       </geometry>
       <material
         name="">
@@ -86,7 +80,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/link_l_yaw.STL" />
+          filename="file:///home/none/Challenge-Tinker/src/tinker_description/meshes/link_l_yaw.STL" />
       </geometry>
     </collision-->
   </link>
@@ -130,7 +124,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/link_l_roll.STL" />
+          filename="file:///home/none/Challenge-Tinker/src/tinker_description/meshes/link_l_roll.STL" />
       </geometry>
       <material
         name="">
@@ -144,7 +138,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/link_l_roll.STL" />
+          filename="file:///home/none/Challenge-Tinker/src/tinker_description/meshes/link_l_roll.STL" />
       </geometry>
     </collision-->
   </link>
@@ -188,7 +182,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/link_l_pitch.STL" />
+          filename="file:///home/none/Challenge-Tinker/src/tinker_description/meshes/link_l_pitch.STL" />
       </geometry>
       <material
         name="">
@@ -202,7 +196,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/link_l_pitch.STL" />
+          filename="file:///home/none/Challenge-Tinker/src/tinker_description/meshes/link_l_pitch.STL" />
       </geometry>
     </collision>
   </link>
@@ -246,7 +240,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/link_l_knee.STL" />
+          filename="file:///home/none/Challenge-Tinker/src/tinker_description/meshes/link_l_knee.STL" />
       </geometry>
       <material
         name="">
@@ -260,7 +254,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/link_l_knee.STL" />
+          filename="file:///home/none/Challenge-Tinker/src/tinker_description/meshes/link_l_knee.STL" />
       </geometry>
     </collision-->
   </link>
@@ -304,7 +298,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/link_l_ankle.STL" />
+          filename="file:///home/none/Challenge-Tinker/src/tinker_description/meshes/link_l_ankle.STL" />
       </geometry>
       <material
         name="">
@@ -318,7 +312,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/link_l_ankle.STL" />
+          filename="file:///home/none/Challenge-Tinker/src/tinker_description/meshes/link_l_ankle.STL" />
       </geometry>
     </collision-->
     <collision>
@@ -410,7 +404,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/link_r_yaw.STL" />
+          filename="file:///home/none/Challenge-Tinker/src/tinker_description/meshes/link_r_yaw.STL" />
       </geometry>
       <material
         name="">
@@ -424,7 +418,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/link_r_yaw.STL" />
+          filename="file:///home/none/Challenge-Tinker/src/tinker_description/meshes/link_r_yaw.STL" />
       </geometry>
     </collision-->
   </link>
@@ -468,7 +462,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/link_r_roll.STL" />
+          filename="file:///home/none/Challenge-Tinker/src/tinker_description/meshes/link_r_roll.STL" />
       </geometry>
       <material
         name="">
@@ -482,7 +476,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/link_r_roll.STL" />
+          filename="file:///home/none/Challenge-Tinker/src/tinker_description/meshes/link_r_roll.STL" />
       </geometry>
     </collision-->
   </link>
@@ -526,7 +520,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/link_r_pitch.STL" />
+          filename="file:///home/none/Challenge-Tinker/src/tinker_description/meshes/link_r_pitch.STL" />
       </geometry>
       <material
         name="">
@@ -540,7 +534,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/link_r_pitch.STL" />
+          filename="file:///home/none/Challenge-Tinker/src/tinker_description/meshes/link_r_pitch.STL" />
       </geometry>
     </collision>
   </link>
@@ -584,7 +578,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/link_r_knee.STL" />
+          filename="file:///home/none/Challenge-Tinker/src/tinker_description/meshes/link_r_knee.STL" />
       </geometry>
       <material
         name="">
@@ -598,7 +592,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/link_r_knee.STL" />
+          filename="file:///home/none/Challenge-Tinker/src/tinker_description/meshes/link_r_knee.STL" />
       </geometry>
     </collision-->
   </link>
@@ -642,7 +636,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/link_r_ankle.STL" />
+          filename="file:///home/none/Challenge-Tinker/src/tinker_description/meshes/link_r_ankle.STL" />
       </geometry>
       <material
         name="">
@@ -656,7 +650,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/link_r_ankle.STL" />
+          filename="file:///home/none/Challenge-Tinker/src/tinker_description/meshes/link_r_ankle.STL" />
       </geometry>
     </collision-->
     <collision>

@@ -6,7 +6,7 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description() -> LaunchDescription:
-  urdf_pkg = 'tinker_urdf'
+  urdf_pkg = 'tinker_description'
   urdf_share = get_package_share_directory(urdf_pkg)
   urdf_path = os.path.join(urdf_share, 'urdf', 'tinker_urdf.urdf')
 
@@ -29,7 +29,13 @@ def generate_launch_description() -> LaunchDescription:
     executable='robot_state_publisher',
     name='robot_state_publisher',
     output='screen',
-    parameters=[{'robot_description': robot_description}]
+    parameters=[{'robot_description': robot_description}],
+    remappings=[
+            ('joint_states', '/robot_joints'),
+            # ('/output/cmd_vel', '/turtlesim2/turtle1/cmd_vel'),
+        ]
+
+    # remappings=[('/', '/')]
   )
 
   rviz2 = Node(
@@ -37,7 +43,7 @@ def generate_launch_description() -> LaunchDescription:
     executable='rviz2',
     name='rviz2',
     output='screen',
-    arguments=['-d', rviz_config]
+    # arguments=['-d', rviz_config]
   )
 
   return LaunchDescription([
