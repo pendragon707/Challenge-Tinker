@@ -48,6 +48,9 @@
 #define USE_USB 0
 #define USE_SERIAL 0
 
+#define MOTOR_ID 5
+
+
 #define EN_SPI_BIG 1
 #define CAN_LINK_COMM_VER1 0
 #define CAN_LINK_COMM_VER2 1//3 BLDC Param DIV
@@ -248,9 +251,9 @@ int slave_rx(uint8_t *data_buf, int num)//接收解码--------------from stm32
             spi_rx.connect_motor[i] = (temp % 100) / 10;
             spi_rx.ready[i] = temp % 10;
 
-            if(spi_rx.connect_motor[i] == 1){
-                printf("q[%d] = %f, dq[%d] = %f, tau[%d] = %f\n", i, spi_rx.q[i], i, spi_rx.dq[i], i, spi_rx.tau[i]);
-            }
+            // if(spi_rx.connect_motor[i] == 1){
+            //     printf("q[%d] = %f, dq[%d] = %f, tau[%d] = %f\n", i, spi_rx.q[i], i, spi_rx.dq[i], i, spi_rx.tau[i]);
+            // }
         }
 
     } 
@@ -504,10 +507,29 @@ private:
   rclcpp::Publisher<hardware_msg::msg::MotorData>::SharedPtr motor_data_pub_;
 
   // Empty subscriber callbacks
-  void on_motors_commands(const hardware_msg::msg::MotorsCommands::SharedPtr msg) { (void)msg; }
-  void on_board_parameters(const hardware_msg::msg::BoardParameters::SharedPtr msg) { (void)msg; }
-  void on_imu_parameters(const hardware_msg::msg::ImuParameters::SharedPtr msg) { (void)msg; }
-  void on_motor_parameters(const hardware_msg::msg::MotorParameters::SharedPtr msg) { (void)msg; }
+  void on_motors_commands(const hardware_msg::msg::MotorsCommands::SharedPtr msg) {
+    spi_tx.q_set[MOTOR_ID] = msg->target_pos;
+    spi_tx.dq_set[MOTOR_ID] = msg->target_vel;
+    spi_tx.tau_ff[MOTOR_ID] = msg->target_trq;
+   }
+
+  void on_board_parameters(const hardware_msg::msg::BoardParameters::SharedPtr msg) { 
+    spi_tx.beep_state=msg->beep_state;
+
+  }
+  void on_imu_parameters(const hardware_msg::msg::ImuParameters::SharedPtr msg) {
+    mems.Acc_CALIBRATE=msg->acc_calibrate;
+    mems.Gyro_CALIBRATE=msg->gyro_calibrate;
+    mems.Mag_CALIBRATE=msg->msg_calibrate;
+
+   }
+  void on_motor_parameters(const hardware_msg::msg::MotorParameters::SharedPtr msg) {
+    spi_tx.kp= msg->kp;
+    spi_tx.kd= msg->kd;
+    spi_tx.en_motor= msg->enable;
+    spi_tx.reset_q= msg->reset_zero;
+    spi_tx.reset_err= msg->reset_error;
+   }
   void on_timer() {
     transfer(1, 45);
     hardware_msg::msg::Imu imu_msg;
@@ -517,9 +539,16 @@ private:
       imu_pub_->publish(imu_msg);
 
       hardware_msg::msg::MotorsStates motors_states_msg;
+      motors_states_msg.current_pos = spi_rx.q[MOTOR_ID];
+      motors_states_msg.current_vel = spi_rx.dq[MOTOR_ID];
+      motors_states_msg.current_trq = spi_rx.tau[MOTOR_ID];
       motors_states_pub_->publish(motors_states_msg);
-
+      
       hardware_msg::msg::MotorData motor_data_msg;
+      motor_data_msg.id = MOTOR_ID;
+      motor_data_msg.connect = spi_rx.connect_motor[MOTOR_ID];
+      motor_data_msg.motor_connected = spi_rx.connect_motor[MOTOR_ID];
+      motor_data_msg.ready = spi_rx.ready[MOTOR_ID];
       motor_data_pub_->publish(motor_data_msg);
 
   }
