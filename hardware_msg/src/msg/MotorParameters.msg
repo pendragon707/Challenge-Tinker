@@ -1,5 +1,6 @@
+std_msgs/Header header
 bool enable
 bool reset_zero
 bool reset_error
-float kp
-float kd
+float32 kp
+float32 kd

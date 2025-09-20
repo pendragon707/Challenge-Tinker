@@ -1,1 +1,2 @@
-float beep_state
+std_msgs/Header header
+float32 beep_state
