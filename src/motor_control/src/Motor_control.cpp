@@ -14,6 +14,7 @@
 #include "hardware_msg/msg/motor_parameters.hpp"
 #include "hardware_msg/msg/motors_commands.hpp"
 #include "hardware_msg/msg/motors_states.hpp"
+#include "sensor_msgs/msg/joint_state.hpp"
 #include <stdint.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -466,6 +467,20 @@ public:
     imu_pub_ = this->create_publisher<hardware_msg::msg::Imu>("imu/data", 10);
     motors_states_pub_ = this->create_publisher<hardware_msg::msg::MotorsStates>("motors/states", 10);
     motor_data_pub_ = this->create_publisher<hardware_msg::msg::MotorData>("motor/data", 10);
+    joint_state_pub_ = this->create_publisher<sensor_msgs::msg::JointState>("/robot_joints", 10);
+
+    joint_names_ = {
+      "joint_l_yaw",
+      "joint_l_roll",
+      "joint_l_pitch",
+      "joint_l_knee",
+      "joint_l_ankle",
+      "joint_r_yaw",
+      "joint_r_roll",
+      "joint_r_pitch",
+      "joint_r_knee",
+      "joint_r_ankle"
+    };
 
     // Subscribers (make them members with empty callbacks)
     motors_cmd_sub_ = this->create_subscription<hardware_msg::msg::MotorsCommands>(
@@ -505,6 +520,8 @@ private:
   rclcpp::Publisher<hardware_msg::msg::Imu>::SharedPtr imu_pub_;
   rclcpp::Publisher<hardware_msg::msg::MotorsStates>::SharedPtr motors_states_pub_;
   rclcpp::Publisher<hardware_msg::msg::MotorData>::SharedPtr motor_data_pub_;
+  rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr joint_state_pub_;
+  std::vector<std::string> joint_names_;
 
   // Empty subscriber callbacks
   void on_motors_commands(const hardware_msg::msg::MotorsCommands::SharedPtr msg) {
@@ -550,7 +567,17 @@ private:
       motor_data_msg.motor_connected = spi_rx.connect_motor[MOTOR_ID];
       motor_data_msg.ready = spi_rx.ready[MOTOR_ID];
       motor_data_pub_->publish(motor_data_msg);
-
+      // Publish JointState for URDF visualization
+      sensor_msgs::msg::JointState js;
+      js.header.stamp = this->get_clock()->now();
+      js.name = joint_names_;
+      js.position.assign(joint_names_.size(), 0.0);
+      if (!joint_names_.empty()) {
+        // joint_l_yaw is first
+        js.position[0] = spi_rx.q[MOTOR_ID];
+      }
+      joint_state_pub_->publish(js);
+      
   }
 
   
